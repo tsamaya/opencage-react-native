@@ -15,7 +15,7 @@ import GlobeIcon from '../components/GlobeIcon';
 import RefreshIcon from '../components/RefreshIcon';
 import GeocodingResult from '../components/GeocodinigResult';
 
-const OCD_API_KEY = '6d0e711d72d74daeb2b0bfd2a5cdfdba';
+import { OCD_API_KEY } from '../env.json';
 
 const styles = StyleSheet.create({
   container: {
