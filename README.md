@@ -4,6 +4,8 @@ This repository demostrates how to use the [opencage-api-cient](https://github.c
 
 [![CircleCI (master)](https://img.shields.io/circleci/project/github/tsamaya/opencage-react-native.svg)](https://circleci.com/gh/tsamaya/opencage-react-native)
 
+![screenshot](./resources/screenshot-ios.png)
+
 ## License
 
 Licensed under the MIT License
