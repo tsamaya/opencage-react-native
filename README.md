@@ -6,6 +6,23 @@ This repository demostrates how to use the [opencage-api-cient](https://github.c
 
 ![screenshot](./resources/screenshot-ios.png)
 
+## Prerequisites
+
+This repository has been created with the React Native CLI Quickstart.
+Follow Reactive Native [instructions](<(https://reactnative.dev/docs/environment-setup)>) to setup your workstation
+
+## Get started
+
+clone the repo
+run
+yarn start
+yarn ios
+yarn android
+
+## API Key
+
+A test key is provided, it returns always the same result. Update [src/env.json](./src/env.json) file with your API KEY.
+
 ## License
 
 Licensed under the MIT License
