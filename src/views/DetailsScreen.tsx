@@ -47,7 +47,6 @@ const DetailScreen = () => {
   const { location } = route.params;
 
   const { components } = location;
-  console.log({ components });
 
   const data = _.map(components, (value, key) => ({ key, value }));
 
@@ -58,7 +57,6 @@ const DetailScreen = () => {
   };
 
   const renderItem = ({ item }: any) => {
-    console.log(item);
     if (!item) {
       return null;
     }
