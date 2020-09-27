@@ -5,13 +5,13 @@ import { ApplicationProvider, IconRegistry } from '@ui-kitten/components';
 
 import { default as theme } from './assets/theme/theme.json'; // <-- Import app theme
 
-import HomeView from './views/HomeView';
+import HomeScreen from './views/HomeScreen';
 
 export default (): JSX.Element => (
   <>
     <IconRegistry icons={EvaIconsPack} />
     <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
-      <HomeView />
+      <HomeScreen />
     </ApplicationProvider>
   </>
 );
