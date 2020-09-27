@@ -5,11 +5,8 @@
 
 import React from 'react';
 import { Keyboard, SafeAreaView, StatusBar, StyleSheet } from 'react-native';
-
 import { Button, Input, Layout, Text } from '@ui-kitten/components';
-
 import opencage from 'opencage-api-client';
-
 import LoadingIndicator from '../components/LoadingIndicator';
 import GlobeIcon from '../components/GlobeIcon';
 import RefreshIcon from '../components/RefreshIcon';
@@ -18,10 +15,19 @@ import GeocodingResult from '../components/GeocodinigResult';
 import { OCD_API_KEY } from '../env.json';
 
 const styles = StyleSheet.create({
-  container: {
+  screen: {
     flex: 1,
   },
-  input: {},
+  container: {
+    flex: 1,
+    paddingHorizontal: 20,
+  },
+  title: {
+    textAlign: 'center',
+  },
+  input: {
+    marginVertical: 15,
+  },
   text: {
     marginVertical: 5,
   },
@@ -34,7 +40,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const HomeView = () => {
+const HomeScreen = () => {
   const [query, setQuery] = React.useState('');
   const [isSubmitting, setSubmitting] = React.useState(false);
   const [locations, setLocations] = React.useState([]);
@@ -69,24 +75,30 @@ const HomeView = () => {
   return (
     <>
       <StatusBar barStyle="default" />
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={styles.screen}>
         <Layout style={styles.container}>
-          <Text style={styles.text} category="h1">
-            OpenCage Data Geocoder Test App 🌍
+          <Text style={styles.title} category="h1">
+            OpenCage Data Geocoder{'\n'}Test App 🌍
           </Text>
-          <Input
-            placeholder="Address or coordinates"
-            value={query}
-            onChangeText={(nextValue) => setQuery(nextValue)}
-            onSubmitEditing={() => handlePressGeocode()}
-          />
+
+          <Text style={styles.text} category="s1">
+            Geocode
+          </Text>
+
           <Text style={styles.text} appearance="hint">
-            📪 Address, place name
+            📪 Address, place name, or
           </Text>
           <Text style={styles.text} appearance="hint">
             🌍 Coordinates as latitude, longitude.
           </Text>
 
+          <Input
+            style={styles.input}
+            placeholder="Address or coordinates"
+            value={query}
+            onChangeText={(nextValue) => setQuery(nextValue)}
+            onSubmitEditing={() => handlePressGeocode()}
+          />
           <Button
             style={styles.geocodeButton}
             accessoryLeft={isSubmitting ? LoadingIndicator : GlobeIcon}
@@ -111,4 +123,4 @@ const HomeView = () => {
   );
 };
 
-export default HomeView;
+export default HomeScreen;
