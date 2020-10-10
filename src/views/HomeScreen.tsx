@@ -5,14 +5,25 @@
 
 import React from 'react';
 import { Keyboard, SafeAreaView, StatusBar, StyleSheet } from 'react-native';
-import { Button, Input, Layout, Text } from '@ui-kitten/components';
+import {
+  Button,
+  Card,
+  Input,
+  Layout,
+  Modal,
+  Text,
+} from '@ui-kitten/components';
+import AsyncStorage from '@react-native-community/async-storage';
 import opencage from 'opencage-api-client';
 import LoadingIndicator from '../components/LoadingIndicator';
-import GlobeIcon from '../components/GlobeIcon';
-import RefreshIcon from '../components/RefreshIcon';
+import GlobeIcon from '../components/icons/GlobeIcon';
+import RefreshIcon from '../components/icons/RefreshIcon';
+import SettingsIcon from '../components/icons/SettingsIcon';
 import GeocodingResult from '../components/GeocodinigResult';
 
-import { OCD_API_KEY } from '../env.json';
+import { OCD_API_KEY_TEST } from '../env.json';
+
+const API_KEY_STORAGE = '@api_Key';
 
 const styles = StyleSheet.create({
   screen: {
@@ -38,12 +49,18 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 20,
   },
+  settingsButton: {
+    margin: 2,
+  },
+  backdrop: { backgroundColor: 'rgba(0, 0, 0, 0.5)' },
 });
 
 const HomeScreen = () => {
   const [query, setQuery] = React.useState('');
+  const [apiKey, setApiKey] = React.useState(OCD_API_KEY_TEST);
   const [isSubmitting, setSubmitting] = React.useState(false);
   const [locations, setLocations] = React.useState([]);
+  const [settingsVisible, setSettingsVisible] = React.useState(false);
 
   const handlePressGeocode = async () => {
     if (!query) {
@@ -55,7 +72,7 @@ const HomeScreen = () => {
     try {
       const response = await opencage.geocode({
         q: query,
-        key: OCD_API_KEY,
+        key: apiKey,
         no_annotations: 1,
       });
       // console.log(response.results);
@@ -67,10 +84,49 @@ const HomeScreen = () => {
       setSubmitting(false);
     }
   };
+
   const handlePressReset = () => {
     setLocations([]);
     setQuery('');
   };
+
+  const storeApiKeyInStorage = async (value: string) => {
+    try {
+      await AsyncStorage.setItem(API_KEY_STORAGE, value);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const getApiKeyFromStage = async () => {
+    try {
+      const value = await AsyncStorage.getItem(API_KEY_STORAGE);
+      if (value !== null) {
+        console.log(`restore API key ${value}`);
+        setApiKey(value);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const dismissSettings = () => {
+    setSettingsVisible(false);
+    console.log({ apiKey });
+    if (apiKey && apiKey !== OCD_API_KEY_TEST) {
+      console.log('store');
+      storeApiKeyInStorage(apiKey);
+    } else {
+      console.log('reset default');
+      setApiKey(OCD_API_KEY_TEST);
+    }
+  };
+
+  React.useEffect(() => {
+    (async () => {
+      await getApiKeyFromStage();
+    })();
+  }, []);
 
   return (
     <>
@@ -92,7 +148,17 @@ const HomeScreen = () => {
             🌍 Coordinates as latitude, longitude.
           </Text>
 
+          <Button
+            style={styles.resetButton}
+            accessoryLeft={SettingsIcon}
+            onPress={() => setSettingsVisible(true)}
+            status="basic"
+          >
+            Settings
+          </Button>
+
           <Input
+            autoFocus
             style={styles.input}
             placeholder="Address or coordinates"
             value={query}
@@ -116,7 +182,27 @@ const HomeScreen = () => {
           >
             Reset
           </Button>
+
           {locations.length > 0 && <GeocodingResult data={locations} />}
+
+          <Modal
+            visible={settingsVisible}
+            backdropStyle={styles.backdrop}
+            onBackdropPress={() => dismissSettings()}
+          >
+            <Card disabled={true}>
+              <Text>Your OpenCage API key 🔑</Text>
+              <Input
+                autoFocus
+                style={styles.input}
+                placeholder="OPENCAGE API KEY"
+                value={apiKey === OCD_API_KEY_TEST ? '' : apiKey}
+                onChangeText={(nextValue) => setApiKey(nextValue)}
+                onSubmitEditing={() => dismissSettings()}
+              />
+              <Button onPress={() => dismissSettings()}>SET</Button>
+            </Card>
+          </Modal>
         </Layout>
       </SafeAreaView>
     </>
