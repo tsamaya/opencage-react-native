@@ -12,7 +12,7 @@ import {
   Text,
 } from '@ui-kitten/components';
 
-import BackIcon from '../components/BackIcon';
+import BackIcon from '../components/icons/BackIcon';
 
 type DetailsParamList = {
   Details: {
