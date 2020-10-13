@@ -148,6 +148,13 @@ const HomeScreen = () => {
             🌍 Coordinates as latitude, longitude.
           </Text>
 
+          {apiKey === OCD_API_KEY_TEST && (
+            <Text style={styles.text} category="s2">
+              ⚠️ Test KEY, it will always return `Friedrich-Ebert-Straße`. Press
+              settings and enter you API Key
+            </Text>
+          )}
+
           <Button
             style={styles.resetButton}
             accessoryLeft={SettingsIcon}
