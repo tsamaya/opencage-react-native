@@ -4,7 +4,6 @@ import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import _ from 'lodash';
 import {
   Button,
-  Card,
   Divider,
   Layout,
   List,
@@ -13,6 +12,7 @@ import {
 } from '@ui-kitten/components';
 
 import BackIcon from '../components/icons/BackIcon';
+import GlobeIcon from '../components/icons/GlobeIcon';
 
 type DetailsParamList = {
   Details: {
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   list: {
-    maxHeight: 600,
+    maxHeight: 800,
   },
   address: {
     marginVertical: 5,
@@ -50,10 +50,14 @@ const DetailScreen = () => {
 
   const data = _.map(components, (value, key) => ({ key, value }));
 
-  console.log({ data });
+  // console.log({ data });
 
   const handlePressBack = () => {
     navigation.goBack();
+  };
+
+  const handlePressMap = () => {
+    navigation.navigate('Map', { location });
   };
 
   const renderItem = ({ item }: any) => {
@@ -79,14 +83,21 @@ const DetailScreen = () => {
           <Text style={styles.address} category="s1">
             {location.formatted}
           </Text>
-          <Card>
-            <List
-              style={styles.list}
-              data={data}
-              ItemSeparatorComponent={Divider}
-              renderItem={renderItem}
-            />
-          </Card>
+          <Button
+            style={styles.backButton}
+            accessoryLeft={GlobeIcon}
+            onPress={() => handlePressMap()}
+          >
+            Map
+          </Button>
+          {/* <Card> */}
+          <List
+            style={styles.list}
+            data={data}
+            ItemSeparatorComponent={Divider}
+            renderItem={renderItem}
+          />
+          {/* </Card> */}
         </Layout>
       </SafeAreaView>
     </>
