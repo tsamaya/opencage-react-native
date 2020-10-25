@@ -13,6 +13,7 @@
     "@eva-design/eva": "^2.0.0",
     "@react-native-community/async-storage": "^1.12.1",
     "@react-native-community/masked-view": "^0.1.10",
+    "@react-native-mapbox-gl/maps": "^8.1.0-rc.5",
     "@react-navigation/native": "^5.7.4",
     "@react-navigation/stack": "^5.9.1",
     "@types/lodash": "^4.14.161",
@@ -47,6 +48,9 @@
   },
   "jest": {
     "preset": "react-native",
+    "setupFilesAfterEnv": [
+      "@react-native-mapbox-gl/maps/setup-jest"
+    ],
     "moduleFileExtensions": [
       "ts",
       "tsx",

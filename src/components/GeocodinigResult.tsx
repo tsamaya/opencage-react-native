@@ -14,12 +14,14 @@ type GeocodingResultProps = {
 };
 
 const GeocodingResult = ({ data }: GeocodingResultProps) => {
+  // TODO: remove nvaigation and put handlePress as a props
   const navigation = useNavigation();
 
   const handlePress = ({ item }: any) => {
     // console.log(item);
     navigation.navigate('Details', { location: item });
   };
+
   const renderItem = ({ item, index }: any) => {
     return (
       <ListItem
