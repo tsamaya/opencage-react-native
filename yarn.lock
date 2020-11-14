@@ -5578,10 +5578,10 @@ open@^6.2.0:
   dependencies:
     is-wsl "^1.1.0"
 
-opencage-api-client@0.9.0:
-  version "0.9.0"
-  resolved "https://registry.yarnpkg.com/opencage-api-client/-/opencage-api-client-0.9.0.tgz#99fc47eb2bf5d2d723cd7cfa7f16fbaf0f24d3d5"
-  integrity sha512-6ovDvHzjm3lP5BE40X0mBr7VAubhSR0SwW+DnrL+BVWMK9hPQMXR+IbItNcjvSizSR8NVknBDpFQVm2GA8ojMA==
+opencage-api-client@0.10.0:
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/opencage-api-client/-/opencage-api-client-0.10.0.tgz#6520e64ad6cd14e41be705964c819c16faf8bf5c"
+  integrity sha512-t3DaDmXDC9oi3LFJlic76L2iLgs2yoaIIEBZe76CMAvW6hX/QfNUAIwlg3mj9A3JLEvf/2LTw5llyJa1yuesrA==
   dependencies:
     cross-fetch "^3.0.6"
     dotenv "^8.2.0"
