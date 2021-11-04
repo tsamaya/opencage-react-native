@@ -75,9 +75,9 @@ const HomeScreen = () => {
         key: apiKey,
         no_annotations: 1,
       });
-      // console.log(response.results);
+      console.log(response.results);
       setLocations(response.results);
-    } catch (error) {
+    } catch (error: any) {
       console.log(error.toString());
       setLocations([]);
     } finally {
