@@ -1,37 +1,25 @@
 version: 2.1
-
+orbs:
+  node: circleci/node@5.0.2
 jobs:
-  build:
+  test:
     docker:
-      - image: circleci/node:14
-
-    working_directory: ~/repo
-
+      - image: cimg/node:16.14
     steps:
       - checkout
-
-      # Download and cache dependencies
-      - restore_cache:
-          name: Restore Yarn Package Cache
-          keys:
-            - v1-yarn-packages-{{ checksum "yarn.lock" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-yarn-packages-
-
-      - run: yarn install
-
-      - save_cache:
-          name: Save Yarn Package Cache
-          key: v1-yarn-packages-{{ checksum "yarn.lock" }}
-          paths:
-            - ~/.cache/yarn
-            - node_modules
-
-      # run tests!
-      - run: yarn test
-
+      - node/install-packages:
+          pkg-manager: yarn
+      - run: node --version
+      - run:
+          name: Run linter
+          command: yarn run lint
+      - run:
+          name: Run tests
+          command: yarn run test
+      - run:
+          command: cat /sys/fs/cgroup/memory/memory.max_usage_in_bytes
+          when: always
 workflows:
-  version: 2
-  build-test-deploy:
+  app-workflow:
     jobs:
-      - build
+      - test
