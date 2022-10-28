@@ -86,6 +86,7 @@ const DetailScreen = () => {
           <Button
             style={styles.backButton}
             accessoryLeft={GlobeIcon}
+            disabled
             onPress={() => handlePressMap()}
           >
             Map
